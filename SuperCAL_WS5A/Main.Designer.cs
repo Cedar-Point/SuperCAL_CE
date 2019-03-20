@@ -77,7 +77,7 @@
             this.Controls.Add(this.LogTB);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Main";
-            this.Text = "Super CAL";
+            this.Text = "Super CAL (WS5A)";
             this.TopMost = true;
             this.ResumeLayout(false);
 
