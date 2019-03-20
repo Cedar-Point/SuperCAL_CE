@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCE", "TestCE\TestCE.csproj", "{5A6F2685-6474-483F-9F0C-B96844780314}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperCAL_WS5A", "SuperCAL_WS5A\SuperCAL_WS5A.csproj", "{5A6F2685-6474-483F-9F0C-B96844780314}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
