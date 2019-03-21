@@ -1,4 +1,4 @@
-﻿namespace SuperCAL_WS5A
+﻿namespace SuperCAL_CE
 {
     partial class Main
     {
@@ -41,6 +41,7 @@
             this.ReCAL.Size = new System.Drawing.Size(112, 69);
             this.ReCAL.TabIndex = 1;
             this.ReCAL.Text = "Re CAL";
+            this.ReCAL.Click += new System.EventHandler(this.ReCAL_Click);
             // 
             // ReDownloadCAL
             // 
@@ -57,6 +58,7 @@
             this.StopStartCAL.Size = new System.Drawing.Size(113, 69);
             this.StopStartCAL.TabIndex = 3;
             this.StopStartCAL.Text = "CAL Srvc Toggle";
+            this.StopStartCAL.Click += new System.EventHandler(this.StopStartCAL_Click);
             // 
             // LogTB
             // 
@@ -75,10 +77,12 @@
             this.Controls.Add(this.ReDownloadCAL);
             this.Controls.Add(this.StopStartCAL);
             this.Controls.Add(this.LogTB);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Main";
-            this.Text = "Super CAL (WS5A)";
+            this.Text = "Super CAL (CE)";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
 
         }

@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace SuperCAL_WS5A
+namespace SuperCAL_CE
 {
     static class Program
     {

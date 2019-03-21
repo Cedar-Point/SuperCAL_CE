@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
-namespace SuperCAL_WS5A
+namespace SuperCAL_CE
 {
     public partial class Main : Form
     {
@@ -19,6 +14,7 @@ namespace SuperCAL_WS5A
         public Main()
         {
             InitializeComponent();
+            Logger.LogTB = LogTB;
             hWnd = Handle;
             SetWindowsPosition((Screen.PrimaryScreen.Bounds.Width / 2) - (Width / 2), (Screen.PrimaryScreen.Bounds.Height / 2) - (Height / 2));
         }
@@ -35,6 +31,23 @@ namespace SuperCAL_WS5A
             {
                 Console.WriteLine("Failed to set window position.");
             }
+        }
+
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            Logger.Log("Welcome to Super CAL: Press any button to begin.");
+        }
+
+
+        private void ReCAL_Click(object sender, EventArgs e)
+        {
+            Misc.StopCAL();
+        }
+
+        private void StopStartCAL_Click(object sender, EventArgs e)
+        {
+            Misc.IsCalStarted();
         }
     }
 }

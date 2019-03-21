@@ -6,15 +6,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5A6F2685-6474-483F-9F0C-B96844780314}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SuperCAL_WS5A</RootNamespace>
-    <AssemblyName>SuperCAL_WS5A</AssemblyName>
+    <RootNamespace>SuperCAL_CE</RootNamespace>
+    <AssemblyName>SuperCAL_CE</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +25,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -44,6 +44,9 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\Logger.cs" />
+    <Compile Include="Classes\Misc.cs" />
+    <Compile Include="Classes\Processes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs">
@@ -76,6 +79,10 @@
       <HintPath>References\System.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Core">
+      <HintPath>References\System.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Data">
       <HintPath>References\System.Data.dll</HintPath>
       <Private>False</Private>
@@ -96,10 +103,13 @@
   <ItemGroup>
     <None Include="Resources\supercal.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Windows Kits\10\tools\bin\i386\signtool.exe" sign /n "Cedar Point IT" $(TargetPath)
-del D:\*  /Q
-copy $(TargetDir)\* D:\*</PostBuildEvent>
+    <PostBuildEvent>del E:\*  /Q
+copy $(TargetDir)\* E:\*</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>del $(TargetDir)\*  /Q</PreBuildEvent>
   </PropertyGroup>
 </Project>

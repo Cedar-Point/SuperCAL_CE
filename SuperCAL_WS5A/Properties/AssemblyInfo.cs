@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SuperCAL - Workstation 5A")]
-[assembly: AssemblyDescription("SuperCAL - Workstation 5A")]
+[assembly: AssemblyTitle("SuperCAL - Windows CE Edition")]
+[assembly: AssemblyDescription("SuperCAL - Windows CE Edition")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dylan Bickerstaff")]
 [assembly: AssemblyProduct("SuperCAL")]
