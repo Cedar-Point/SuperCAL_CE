@@ -8,23 +8,24 @@ namespace SuperCAL_CE
         public static TextBox LogTB;
         public static void Log(string message)
         {
-            WriteLine(message, "SuperCAL> ");
+            WriteLine(message, "INFO: ");
         }
         public static void Good(string message)
         {
-            WriteLine(message, "SUCCESS> ");
+            WriteLine(message, "SUCCESS: ");
         }
         public static void Warning(string message)
         {
-            WriteLine(message, "WARNING> ");
+            WriteLine(message, "WARNING: ");
         }
         public static void Error(string message)
         {
-            WriteLine(message, "ERROR> ");
+            WriteLine(message, "ERROR: ");
         }
         private static void WriteLine(string message, string prefix = "")
         {
-            LogTB.Text = LogTB.Text + prefix + DateTime.Now.ToLocalTime().ToShortTimeString() + ": " + message + '\r';
+            LogTB.Text = LogTB.Text + DateTime.Now.ToLocalTime().ToShortTimeString() + "> " + prefix + message + "\r\n";
+            LogTB.SelectionStart = LogTB.Text.Length;
             LogTB.ScrollToCaret();
         }
     }

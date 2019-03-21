@@ -50,6 +50,7 @@
             this.ReDownloadCAL.Size = new System.Drawing.Size(124, 69);
             this.ReDownloadCAL.TabIndex = 2;
             this.ReDownloadCAL.Text = "Re Download";
+            this.ReDownloadCAL.Click += new System.EventHandler(this.ReDownloadCAL_Click);
             // 
             // StopStartCAL
             // 
@@ -66,6 +67,7 @@
             this.LogTB.Multiline = true;
             this.LogTB.Name = "LogTB";
             this.LogTB.ReadOnly = true;
+            this.LogTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.LogTB.Size = new System.Drawing.Size(361, 353);
             this.LogTB.TabIndex = 4;
             // 

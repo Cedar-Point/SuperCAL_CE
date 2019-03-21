@@ -162,9 +162,9 @@ namespace SuperCAL_CE
         }
 
         public string processName;
-        private IntPtr handle;
-        private int threadCount;
-        private int baseAddress;
+        public IntPtr handle;
+        public int threadCount;
+        public int baseAddress;
 
         //default constructor
         public ProcessCE()

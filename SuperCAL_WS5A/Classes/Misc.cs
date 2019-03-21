@@ -4,36 +4,64 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using Microsoft.Win32;
+using System.IO;
+using System.Reflection;
 
 namespace SuperCAL_CE
 {
     class Misc
     {
         private static string PersistentStore = null;
+        private static string[] StopCalProcesses = new string[]
+        {
+            "McrsCAL.exe",
+            "SarOpsMM.exe",
+            "SarOps.exe",
+            "KDSDisplay.exe"
+        };
         public static void StartCAL()
         {
             Logger.Log("Starting CAL...");
             Process.Start(GetPersistentStore() + @"\McrsCAL\McrsCAL.exe", "");
             Logger.Good("CAL Started.");
         }
-
         public static void StopCAL()
         {
             Logger.Log("Stopping CAL...");
-            Process stop = Process.Start(GetPersistentStore() + @"\McrsCAL\McrsCAL.exe", "");
-            stop.WaitForExit();
+            foreach(ProcessCE process in ProcessCE.GetProcesses())
+            {
+                foreach(string calProcess in StopCalProcesses)
+                {
+                    if(calProcess.ToLower() == process.processName.ToLower())
+                    {
+                        Logger.Log(process.processName + ": Killing...");
+                        Process.GetProcessById(process.handle.ToInt32()).Kill();
+                        Logger.Good(process.processName + ": Killed.");
+                        break;
+                    }
+                }
+            }
             Logger.Good("CAL Stopped.");
+        }
+        public static string GetCurrentDirectory()
+        {
+            string assemblyLocation = Assembly.GetExecutingAssembly().GetName().CodeBase;
+            return Path.GetDirectoryName(assemblyLocation);
         }
 
         public static bool IsCalStarted()
         {
+            bool found = false;
             foreach(ProcessCE process in ProcessCE.GetProcesses())
             {
-                Logger.Log(process.processName);
+                if(process.processName.ToLower() == "mcrscal.exe")
+                {
+                    found = true;
+                    break;
+                }
             }
-            return false;
+            return found;
         }
-
         public static string GetPersistentStore()
         {
             if (PersistentStore == null)
