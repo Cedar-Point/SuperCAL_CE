@@ -15,8 +15,8 @@ namespace SuperCAL_CE
         public Timer topTimer = new Timer();
         public Main()
         {
-            InitializeComponent();
             InitializeMainMenu();
+            InitializeComponent();
             Logger.LogTB = LogTB;
             hWnd = Handle;
             CenterWindow();
@@ -76,6 +76,8 @@ namespace SuperCAL_CE
             }
             catch(Exception)
             {
+                Menu = null;
+                ReCAL.Enabled = ReDownloadCAL.Enabled = StopStartCAL.Enabled = false;
                 Logger.Error("A fatal error occured. Check the SuperCAL_CE.xml configuration. Also, make sure SuperCAL CE is running on Windows CE 6+ with .NET Compact Framework 3.5.");
             }
         }
@@ -115,6 +117,6 @@ namespace SuperCAL_CE
             Cursor.Current = Cursors.Default;
         }
 
-        private void PerformLayout(bool tf = false) { }
+        private void PerformLayout() { }
     }
 }
