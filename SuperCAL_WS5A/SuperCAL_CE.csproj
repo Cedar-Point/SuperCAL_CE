@@ -49,6 +49,9 @@
     <Compile Include="Classes\Misc.cs" />
     <Compile Include="Classes\Processes.cs" />
     <Compile Include="Classes\Wipe.cs" />
+    <Compile Include="MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs">
@@ -79,10 +82,6 @@
     </Reference>
     <Reference Include="System">
       <HintPath>References\System.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Core">
-      <HintPath>References\System.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data">

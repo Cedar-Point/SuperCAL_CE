@@ -36,7 +36,7 @@
             // 
             // ReCAL
             // 
-            this.ReCAL.Location = new System.Drawing.Point(6, 5);
+            this.ReCAL.Location = new System.Drawing.Point(6, 27);
             this.ReCAL.Name = "ReCAL";
             this.ReCAL.Size = new System.Drawing.Size(112, 69);
             this.ReCAL.TabIndex = 1;
@@ -45,7 +45,7 @@
             // 
             // ReDownloadCAL
             // 
-            this.ReDownloadCAL.Location = new System.Drawing.Point(124, 5);
+            this.ReDownloadCAL.Location = new System.Drawing.Point(124, 27);
             this.ReDownloadCAL.Name = "ReDownloadCAL";
             this.ReDownloadCAL.Size = new System.Drawing.Size(124, 69);
             this.ReDownloadCAL.TabIndex = 2;
@@ -54,7 +54,7 @@
             // 
             // StopStartCAL
             // 
-            this.StopStartCAL.Location = new System.Drawing.Point(254, 5);
+            this.StopStartCAL.Location = new System.Drawing.Point(254, 27);
             this.StopStartCAL.Name = "StopStartCAL";
             this.StopStartCAL.Size = new System.Drawing.Size(113, 69);
             this.StopStartCAL.TabIndex = 3;
@@ -63,12 +63,12 @@
             // 
             // LogTB
             // 
-            this.LogTB.Location = new System.Drawing.Point(6, 80);
+            this.LogTB.Location = new System.Drawing.Point(6, 104);
             this.LogTB.Multiline = true;
             this.LogTB.Name = "LogTB";
             this.LogTB.ReadOnly = true;
             this.LogTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LogTB.Size = new System.Drawing.Size(361, 353);
+            this.LogTB.Size = new System.Drawing.Size(361, 329);
             this.LogTB.TabIndex = 4;
             // 
             // Main
@@ -79,6 +79,7 @@
             this.Controls.Add(this.ReDownloadCAL);
             this.Controls.Add(this.StopStartCAL);
             this.Controls.Add(this.LogTB);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Main";
@@ -86,6 +87,7 @@
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

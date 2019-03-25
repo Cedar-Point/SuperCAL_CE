@@ -9,20 +9,9 @@ namespace SuperCAL_CE
     {
         public static string EGatewayURL = null;
         public static string EGatewayHost = null;
+        public static string[] WipePaths = null;
 
-        private static string[] WipeFolders = new string[]
-        {
-            "CALTemp",
-            "PosClient",
-            "Micros"
-        };
-        private static string[] WipeStores = new string[]
-        {
-            "CF",
-            "STORE"
-        };
         private static Dictionary<string, object> KeepValues = new Dictionary<string, object> {
-            { "PersistentStore", null },
             { "DeviceId", null },
             { "ServiceHostId", null },
             { "ProductType", null },
@@ -98,23 +87,19 @@ namespace SuperCAL_CE
 
         private static void WipeFileStores()
         {
-            foreach(string store in WipeStores)
+            foreach(string path in WipePaths)
             {
-                foreach(string folder in WipeFolders)
+                if(Directory.Exists(path))
                 {
-                    string path = @"\" + store + @"\" + folder;
-                    if(Directory.Exists(path))
+                    try
                     {
-                        try
-                        {
-                            Logger.Log(path + ": Deleting...");
-                            Directory.Delete(path, true);
-                            Logger.Good(path + ": Deleted.");
-                        }
-                        catch(Exception)
-                        {
-                            Logger.Error(path + ": Error deleting directory.");
-                        }
+                        Logger.Log(path + ": Deleting...");
+                        Directory.Delete(path, true);
+                        Logger.Good(path + ": Deleted.");
+                    }
+                    catch(Exception)
+                    {
+                        Logger.Error(path + ": Error deleting directory.");
                     }
                 }
             }

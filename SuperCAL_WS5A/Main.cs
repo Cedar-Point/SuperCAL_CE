@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Diagnostics;
 using System.IO;
 
 namespace SuperCAL_CE
@@ -17,25 +16,29 @@ namespace SuperCAL_CE
         public Main()
         {
             InitializeComponent();
+            InitializeMainMenu();
             Logger.LogTB = LogTB;
             hWnd = Handle;
-            SetWindowsPosition((Screen.PrimaryScreen.Bounds.Width / 2) - (Width / 2), (Screen.PrimaryScreen.Bounds.Height / 2) - (Height / 2));
+            CenterWindow();
             topTimer.Interval = 1000;
             topTimer.Tick += TopTimer_Tick;
             topTimer.Enabled = true;
         }
-        private static void SetWindowsPosition(int x, int y)
+        private static void SetWindowPosition(int x, int y)
         {
             try
             {
                 SetWindowPos(hWnd, IntPtr.Zero, x, y, 0, 0, 0x0001);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Console.WriteLine("Failed to set window position.");
             }
         }
-
+        private void CenterWindow(int xOffset = 0, int yOffset = 0)
+        {
+            SetWindowPosition((Screen.PrimaryScreen.Bounds.Width / 2) - (Width / 2) + xOffset, (Screen.PrimaryScreen.Bounds.Height / 2) - (Height / 2) + yOffset);
+        }
         private void ToggleCalSvc(bool onlyCheck = false)
         {
             if (!onlyCheck)
@@ -61,33 +64,39 @@ namespace SuperCAL_CE
 
         private void Main_Load(object sender, EventArgs e)
         {
-            if(!File.Exists("SuperCAL_CE.xml"))
+            try
             {
-                Config.GenerateConfig();
+                if (!File.Exists("SuperCAL_CE.xml"))
+                {
+                    Config.GenerateConfig();
+                }
+                Config.ReadConfig();
+                Logger.Log("Welcome to Super CAL: Press any button to begin.");
+                ToggleCalSvc(true);
             }
-            Config.ReadConfig();
-            Logger.Log("Welcome to Super CAL: Press any button to begin.");
-            ToggleCalSvc(true);
+            catch(Exception)
+            {
+                Logger.Error("A fatal error occured. Check the SuperCAL_CE.xml configuration. Also, make sure SuperCAL CE is running on Windows CE 6+ with .NET Compact Framework 3.5.");
+            }
         }
 
         private void ReCAL_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             Misc.StopCAL();
             ToggleCalSvc(true);
             Wipe.Do(false);
             Misc.StartCAL();
             ToggleCalSvc(true);
-            /*
-            foreach (ProcessCE process in ProcessCE.GetProcesses())
-            {
-                Logger.Log(process.baseAddress + ": " + process.handle.ToInt32() + ": " + process.processName);
-            }
-            */
+            CenterWindow(-330);
+            Cursor.Current = Cursors.Default;
         }
 
         private void StopStartCAL_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             ToggleCalSvc();
+            Cursor.Current = Cursors.Default;
         }
         private void TopTimer_Tick(object sender, EventArgs e)
         {
@@ -96,11 +105,16 @@ namespace SuperCAL_CE
 
         private void ReDownloadCAL_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             Misc.StopCAL();
             ToggleCalSvc(true);
             Wipe.Do(true);
             Misc.StartCAL();
             ToggleCalSvc(true);
+            CenterWindow(-330);
+            Cursor.Current = Cursors.Default;
         }
+
+        private void PerformLayout(bool tf = false) { }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
-using Microsoft.Win32;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -11,26 +6,36 @@ namespace SuperCAL_CE
 {
     class Misc
     {
-        private static string PersistentStore = null;
-        private static string[] StopCalProcesses = new string[]
-        {
-            "McrsCAL.exe",
-            "SarOpsMM.exe",
-            "SarOps.exe",
-            "KDSDisplay.exe"
-        };
+        public static string[] McrsCalProcesses = null;
+        public static string[] McrsCalPaths = null;
         public static void StartCAL()
         {
             Logger.Log("Starting CAL...");
-            Process.Start(GetPersistentStore() + @"\McrsCAL\McrsCAL.exe", "");
-            Logger.Good("CAL Started.");
+            bool calFound = false;
+            foreach(string McrsCalPath in McrsCalPaths)
+            {
+                if (File.Exists(McrsCalPath))
+                {
+                    Process.Start(McrsCalPath, "");
+                    calFound = true;
+                    break;
+                }
+            }
+            if(calFound)
+            {
+                Logger.Good("CAL Started.");
+            }
+            else
+            {
+                Logger.Error("Could not find McrsCAL! Make sure the path to McrsCAL.exe is specified in the SuperCAL_CE.xml");
+            }
         }
         public static void StopCAL()
         {
             Logger.Log("Stopping CAL...");
             foreach(ProcessCE process in ProcessCE.GetProcesses())
             {
-                foreach(string calProcess in StopCalProcesses)
+                foreach(string calProcess in McrsCalProcesses)
                 {
                     if(calProcess.ToLower() == process.processName.ToLower())
                     {
@@ -61,24 +66,6 @@ namespace SuperCAL_CE
                 }
             }
             return found;
-        }
-        public static string GetPersistentStore()
-        {
-            if (PersistentStore == null)
-            {
-                Logger.Log("Finding Persistent Store...");
-                try
-                {
-                    RegistryKey CalConfig = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Micros\CAL\Config", false);
-                    PersistentStore = (string)CalConfig.GetValue("PersistentStore");
-                }
-                catch(Exception)
-                {
-                    Logger.Error(@"Could not find: HKLM\SOFTWARE\Micros\CAL\Config\PersistentStore");
-                }
-                Logger.Good("Persistent Store Found at: " + PersistentStore);
-            }
-            return PersistentStore;
         }
     }
 }
