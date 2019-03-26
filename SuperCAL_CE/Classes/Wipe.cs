@@ -24,7 +24,10 @@ namespace SuperCAL_CE
                 SaveImportantValues();
             }
             WipeMicrosKey();
-            ReplaceImportantValues();
+            if (keepCal)
+            {
+                ReplaceImportantValues();
+            }
             WipeFileStores();
         }
 
