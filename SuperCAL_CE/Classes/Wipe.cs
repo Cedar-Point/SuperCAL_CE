@@ -15,8 +15,7 @@ namespace SuperCAL_CE
             { "DeviceId", null },
             { "ServiceHostId", null },
             { "ProductType", null },
-            { "WSId", null },
-            { "HwConfigured", null }
+            { "WSId", null }
         };
         public static void Do(bool keepCal = false)
         {
@@ -122,6 +121,17 @@ namespace SuperCAL_CE
                 }
             }
             CalConfig.Close();
+            try
+            {
+                Logger.Log(@"..\HwConfigured: Writing to registry...");
+                RegistryKey Cal = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Micros\CAL", true);
+                Cal.SetValue("HwConfigured", 1);
+                Cal.Close();
+            }
+            catch(Exception)
+            {
+                Logger.Warning(@"..\HwConfigured: Failed to write value.");
+            }
             Logger.Good("CAL Config: Done.");
         }
     }
