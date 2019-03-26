@@ -66,10 +66,6 @@ namespace SuperCAL_CE
         {
             try
             {
-                if (!File.Exists("SuperCAL_CE.xml"))
-                {
-                    Config.GenerateConfig();
-                }
                 Config.ReadConfig();
                 Logger.Log("Welcome to Super CAL: Press any button to begin.");
                 ToggleCalSvc(true);

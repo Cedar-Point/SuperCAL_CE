@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Xml.Linq;
 
 namespace SuperCAL_CE
 {
     class Config
     {
-        public static void GenerateConfig()
+        private static void GenerateConfig()
         {
+            Logger.Good("SuperCAL_CE.xml: Created.");
             new XDocument(new XElement("SuperCAL_CE",
                 new XElement("EGatewayURL", "http://simphony:8080/EGateway/EGateway.asmx"),
                 new XElement("EGatewayHostName", "simphony"),
@@ -32,30 +35,38 @@ namespace SuperCAL_CE
         }
         public static void ReadConfig()
         {
-            XElement root = XDocument.Load(Misc.GetCurrentDirectory() + @"\SuperCAL_CE.xml").Root;
-            Wipe.EGatewayURL = root.Element("EGatewayURL").Value;
-            Wipe.EGatewayHost = root.Element("EGatewayHostName").Value;
-
-            List<string> McrsCalPaths = new List<string>();
-            foreach (XElement path in root.Element("McrsCalPaths").Elements("McrsCalPath"))
+            if (!File.Exists(Misc.GetCurrentDirectory() + @"\SuperCAL_CE.xml"))
             {
-                McrsCalPaths.Add(path.Value);
+                GenerateConfig();
             }
-            Misc.McrsCalPaths = McrsCalPaths.ToArray();
-
-            List<string> WipePaths = new List<string>();
-            foreach (XElement path in root.Element("WipePaths").Elements("WipePath"))
+            try
             {
-                WipePaths.Add(path.Value);
+                XElement root = XDocument.Load(Misc.GetCurrentDirectory() + @"\SuperCAL_CE.xml").Root;
+                Wipe.EGatewayURL = root.Element("EGatewayURL").Value;
+                Wipe.EGatewayHost = root.Element("EGatewayHostName").Value;
+                List<string> McrsCalPaths = new List<string>();
+                foreach (XElement path in root.Element("McrsCalPaths").Elements("McrsCalPath"))
+                {
+                    McrsCalPaths.Add(path.Value);
+                }
+                Misc.McrsCalPaths = McrsCalPaths.ToArray();
+                List<string> WipePaths = new List<string>();
+                foreach (XElement path in root.Element("WipePaths").Elements("WipePath"))
+                {
+                    WipePaths.Add(path.Value);
+                }
+                Wipe.WipePaths = WipePaths.ToArray();
+                List<string> McrsCalProcesses = new List<string>();
+                foreach (XElement process in root.Element("McrsCalProcesses").Elements("McrsCalProcess"))
+                {
+                    McrsCalProcesses.Add(process.Value);
+                }
+                Misc.McrsCalProcesses = McrsCalProcesses.ToArray();
             }
-            Wipe.WipePaths = WipePaths.ToArray();
-
-            List<string> McrsCalProcesses = new List<string>();
-            foreach (XElement process in root.Element("McrsCalProcesses").Elements("McrsCalProcess"))
+            catch(Exception)
             {
-                McrsCalProcesses.Add(process.Value);
+                ReadConfig();
             }
-            Misc.McrsCalProcesses = McrsCalProcesses.ToArray();
         }   
     }
 }
