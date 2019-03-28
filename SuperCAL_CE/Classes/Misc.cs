@@ -10,20 +10,20 @@ namespace SuperCAL_CE
         public static string[] McrsCalPaths = null;
         public static void StartCAL()
         {
-            Logger.Log("Starting CAL...");
+            Logger.Log("CAL: Starting...");
             bool calFound = false;
             foreach(string McrsCalPath in McrsCalPaths)
             {
                 if (File.Exists(McrsCalPath))
                 {
+                    Logger.Log(McrsCalPath + ": Starting...");
                     Process.Start(McrsCalPath, "");
                     calFound = true;
-                    break;
                 }
             }
             if(calFound)
             {
-                Logger.Good("CAL Started.");
+                Logger.Good("CAL: Started.");
             }
             else
             {

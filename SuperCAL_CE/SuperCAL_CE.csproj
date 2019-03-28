@@ -111,8 +111,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>del E:\*  /Q
-copy $(TargetDir)\* E:\*</PostBuildEvent>
+    <PostBuildEvent>rem del E:\*  /Q
+rem copy $(TargetDir)\* E:\*</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>del $(TargetDir)\*  /Q</PreBuildEvent>
