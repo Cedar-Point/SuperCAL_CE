@@ -10,7 +10,6 @@ namespace SuperCAL_CE
         [DllImport("coredll.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
-
         private static IntPtr hWnd;
         public Timer topTimer = new Timer();
         public Main()
@@ -61,7 +60,6 @@ namespace SuperCAL_CE
                 StopStartCAL.Text = "Start CAL";
             }
         }
-
         private void Main_Load(object sender, EventArgs e)
         {
             try
@@ -69,15 +67,23 @@ namespace SuperCAL_CE
                 Config.ReadConfig();
                 Logger.Log("Welcome to Super CAL: Press any button to begin.");
                 ToggleCalSvc(true);
+                if (Pin.UnlockPin != "")
+                {
+                    Control Pin = new Pin();
+                    Controls.Add(Pin);
+                    Pin.Show();
+                    Pin.BringToFront();
+                }
             }
-            catch(Exception)
+            catch(Exception error)
             {
                 Menu = null;
                 ReCAL.Enabled = ReDownloadCAL.Enabled = StopStartCAL.Enabled = false;
                 Logger.Error("A fatal error occured. Check the SuperCAL_CE.xml configuration. Also, make sure SuperCAL CE is running on Windows CE 6+ with .NET Compact Framework 3.5.");
+                Logger.Error(error.Message);
+                Logger.Error(error.StackTrace);
             }
         }
-
         private void ReCAL_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -89,7 +95,6 @@ namespace SuperCAL_CE
             CenterWindow(-330);
             Cursor.Current = Cursors.Default;
         }
-
         private void StopStartCAL_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -100,7 +105,6 @@ namespace SuperCAL_CE
         {
             BringToFront();
         }
-
         private void ReDownloadCAL_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -112,7 +116,6 @@ namespace SuperCAL_CE
             CenterWindow(-330);
             Cursor.Current = Cursors.Default;
         }
-
         private void PerformLayout() { }
     }
 }

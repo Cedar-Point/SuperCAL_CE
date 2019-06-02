@@ -30,7 +30,9 @@ namespace SuperCAL_CE
                     new XElement("WipePath", @"\STORE\CALTemp"),
                     new XElement("WipePath", @"\STORE\PosClient"),
                     new XElement("WipePath", @"\STORE\Micros")
-                )
+                ),
+                new XElement("UnlockMessage", "Enter Unlock PIN"),
+                new XElement("UnlockPIN", "1234")
             )).Save(Misc.GetCurrentDirectory() + @"\SuperCAL_CE.xml");
         }
         public static void ReadConfig()
@@ -44,6 +46,8 @@ namespace SuperCAL_CE
                 XElement root = XDocument.Load(Misc.GetCurrentDirectory() + @"\SuperCAL_CE.xml").Root;
                 Wipe.EGatewayURL = root.Element("EGatewayURL").Value;
                 Wipe.EGatewayHost = root.Element("EGatewayHostName").Value;
+                Pin.UnlockMessage = root.Element("UnlockMessage").Value;
+                Pin.UnlockPin = root.Element("UnlockPIN").Value;
                 List<string> McrsCalPaths = new List<string>();
                 foreach (XElement path in root.Element("McrsCalPaths").Elements("McrsCalPath"))
                 {
