@@ -17,6 +17,7 @@ namespace SuperCAL_CE
         public Pin()
         {
             InitializeComponent();
+            btnDisplay.Text = UnlockMessage;
         }
         private void UpdateDisplay()
         {
